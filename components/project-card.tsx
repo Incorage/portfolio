@@ -7,7 +7,7 @@ export function ProjectSection({ project }: { project: Project }) {
   return (
     <section className="flex w-full flex-col gap-8" aria-labelledby={`${project.year}-${project.logoAlt}`}>
       <Reveal duration={700}>
-      <div className={`${project.colorClass} project-card-shell flex w-full flex-col gap-6 overflow-hidden rounded-2xl p-8 max-[599px]:p-6`}>
+      <div className={`${project.colorClass} flex w-full flex-col gap-6 overflow-hidden rounded-2xl p-8 max-[599px]:p-6`}>
         <Reveal delay={90} duration={650}>
         <div className="flex w-full items-center gap-6">
           <div className="min-w-0 flex-1">
@@ -54,8 +54,8 @@ export function ProjectSection({ project }: { project: Project }) {
             <div
               className={
                 project.imageKind === "phone"
-                  ? "project-media-item relative aspect-[1940/4096] min-h-[422px] min-w-[200px] flex-[1_0_200px] overflow-hidden"
-                  : "project-media-item relative h-[377.554px] min-w-[700px] flex-[1_0_700px] overflow-hidden"
+                  ? "relative aspect-[1940/4096] min-h-[422px] min-w-[200px] flex-[1_0_200px] overflow-hidden"
+                  : "relative h-[377.554px] min-w-[700px] flex-[1_0_700px] overflow-hidden"
               }
               key={src}
             >

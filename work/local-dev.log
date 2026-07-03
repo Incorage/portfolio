@@ -1,0 +1,17 @@
+   ▲ Next.js 15.5.20
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 1573ms
+ ○ Compiling / ...
+ ✓ Compiled / in 3.4s (650 modules)
+ GET / 200 in 3820ms
+ GET / 200 in 110ms
+ GET / 200 in 127ms
+ GET / 200 in 101ms
+ ✓ Compiled in 410ms (641 modules)
+ GET / 200 in 149ms
+ GET / 200 in 143ms
+ GET / 200 in 210ms
+ GET / 200 in 131ms

@@ -93,7 +93,7 @@ export function Header() {
       {menuMounted ? <MobileMenu open={menuOpen} onClose={closeMenu} onCopyEmail={copyEmail} /> : null}
       <div
         aria-live="polite"
-        className={`fixed right-6 top-24 z-[60] rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-medium leading-5 text-ink shadow-lg transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`fixed left-1/2 top-24 z-[60] -translate-x-1/2 rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-medium leading-5 text-ink shadow-lg transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           copied ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-3 opacity-0"
         }`}
         role="status"
