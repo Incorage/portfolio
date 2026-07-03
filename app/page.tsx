@@ -76,7 +76,7 @@ export default function Home() {
 
         <Reveal
           as="footer"
-          className="flex min-h-24 w-full flex-col items-center justify-center gap-6 desktop:flex-row desktop:justify-end"
+          className="flex min-h-24 w-full flex-col items-center justify-center gap-6 text-center desktop:flex-row desktop:justify-center"
           duration={650}
         >
           <Reveal delay={80} duration={550}>
