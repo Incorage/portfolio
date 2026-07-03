@@ -1,6 +1,6 @@
-# Roman Ushakov Landing Page
+# Roman Ushakov landing page
 
-Production-ready responsive landing page built from the supplied Figma frames.
+This is my portfolio website
 
 ## Stack
 
@@ -8,20 +8,3 @@ Production-ready responsive landing page built from the supplied Figma frames.
 - React
 - TypeScript
 - Tailwind CSS
-
-## Run Locally
-
-```bash
-npm install
-npm run dev
-```
-
-Open `http://localhost:3000`.
-
-## Checks
-
-```bash
-npm run typecheck
-npm run build
-```
-"# Portfolio" 
