@@ -1,5 +1,4 @@
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-const publicAsset = (path: string) => `${basePath}${path}`;
+const publicAsset = (path: string) => path.replace(/^\//, "");
 
 export const assets = {
   avatar: "https://www.figma.com/api/mcp/asset/6b3f8a16-f7f4-47c2-9db8-db5391ad7d6b",

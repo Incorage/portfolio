@@ -107,6 +107,12 @@ img {
   }
 
   .reveal {
+    transform: none !important;
+    transition-duration: 500ms !important;
+    transition-property: opacity !important;
+  }
+
+  .reveal[data-reveal-visible="true"] {
     opacity: 1 !important;
     transform: none !important;
   }

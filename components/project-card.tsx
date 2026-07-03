@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { DragScroll } from "@/components/drag-scroll";
 import { Reveal } from "@/components/reveal";
 import type { Project } from "@/lib/portfolio";
@@ -18,12 +17,10 @@ export function ProjectSection({ project }: { project: Project }) {
                   : "relative h-[60px] w-full max-w-[100px] overflow-hidden"
               }
             >
-              <Image
+              <img
                 alt={project.logoAlt}
-                className="object-contain object-left"
-                fill
+                className="size-full object-contain object-left"
                 src={project.logo}
-                unoptimized
               />
             </div>
           </div>
@@ -59,13 +56,11 @@ export function ProjectSection({ project }: { project: Project }) {
               }
               key={src}
             >
-              <Image
+              <img
                 alt={`${project.title}, экран ${index + 1}`}
-                className="object-cover"
+                className="size-full object-cover"
                 draggable={false}
-                fill
                 loading={index === 0 ? "eager" : "lazy"}
-                sizes={project.imageKind === "phone" ? "200px" : "700px"}
                 src={src}
               />
             </div>
