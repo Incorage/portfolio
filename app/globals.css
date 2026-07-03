@@ -68,6 +68,34 @@ img {
   transform: translate3d(0, 0, 0);
 }
 
+.project-details-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.project-info-block {
+  min-width: 0;
+  width: min(100%, 400px);
+}
+
+.project-info-block > div {
+  min-width: 0;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .project-details-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .project-info-block {
+    max-width: 400px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

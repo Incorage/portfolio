@@ -108,7 +108,7 @@ function ProjectDetails({ project }: { project: Project }) {
   ];
 
   return (
-    <div className="grid w-full grid-cols-1 gap-6 desktop:grid-cols-4">
+    <div className="project-details-grid w-full">
       {blocks.map((block, index) => (
         <Reveal delay={index * 110} duration={650} key={block.title}>
           <InfoBlock title={block.title}>{block.content}</InfoBlock>
@@ -120,9 +120,9 @@ function ProjectDetails({ project }: { project: Project }) {
 
 function InfoBlock({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="flex min-w-[280px] flex-col items-start gap-4">
+    <div className="project-info-block flex flex-col items-start gap-4">
       <h3 className="text-xl font-medium leading-6 text-muted desktop:text-2xl desktop:leading-[30px]">{title}</h3>
-      <div className="flex max-w-[400px] flex-col gap-4 text-sm leading-4 desktop:text-base desktop:leading-5">{children}</div>
+      <div className="flex w-full flex-col gap-4 text-sm leading-4 desktop:text-base desktop:leading-5">{children}</div>
     </div>
   );
 }
