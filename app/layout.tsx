@@ -11,7 +11,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Роман Ушаков - Продуктовый дизайнер",
   description:
-    "Портфолио продуктового дизайнера: CRM, мобильные сервисы, дизайн-системы и сложные пользовательские сценарии."
+    "Портфолио продуктового дизайнера: CRM, мобильные сервисы, дизайн-системы и сложные пользовательские сценарии.",
+  icons: {
+    icon: "favicon.svg"
+  }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

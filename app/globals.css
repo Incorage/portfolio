@@ -37,37 +37,6 @@ img {
   display: none;
 }
 
-.reveal {
-  opacity: 0;
-  transform: translate3d(0, 24px, 0);
-  transition-delay: var(--reveal-delay, 0ms);
-  transition-duration: var(--reveal-duration, 700ms);
-  transition-property: opacity, transform;
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
-}
-
-.reveal[data-reveal-direction="down"] {
-  transform: translate3d(0, -24px, 0);
-}
-
-.reveal[data-reveal-direction="left"] {
-  transform: translate3d(24px, 0, 0);
-}
-
-.reveal[data-reveal-direction="right"] {
-  transform: translate3d(-24px, 0, 0);
-}
-
-.reveal[data-reveal-direction="none"] {
-  transform: translate3d(0, 0, 0);
-}
-
-.reveal[data-reveal-visible="true"] {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
-
 .project-details-grid {
   display: grid;
   gap: 24px;
@@ -107,13 +76,12 @@ img {
   }
 
   .reveal {
-    transform: none !important;
-    transition-duration: 500ms !important;
-    transition-property: opacity !important;
+    transition-duration: var(--reveal-duration, 700ms) !important;
   }
 
   .reveal[data-reveal-visible="true"] {
     opacity: 1 !important;
     transform: none !important;
+    filter: blur(0) !important;
   }
 }

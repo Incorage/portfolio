@@ -13,6 +13,14 @@ type RevealProps = {
   once?: boolean;
 } & React.HTMLAttributes<HTMLElement>;
 
+const directionClasses = {
+  up: "translate-y-8",
+  down: "-translate-y-8",
+  left: "translate-x-8",
+  right: "-translate-x-8",
+  none: "translate-x-0 translate-y-0"
+} as const;
+
 export function Reveal({
   as: Tag = "div",
   children,
@@ -45,7 +53,7 @@ export function Reveal({
           setVisible(false);
         }
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+      { rootMargin: "0px 0px 45% 0px", threshold: 0 }
     );
 
     observer.observe(node);
@@ -58,7 +66,7 @@ export function Reveal({
       ref={(node) => {
         ref.current = node;
       }}
-      className={`reveal ${className}`}
+      className={`reveal opacity-0 blur-sm ${directionClasses[direction]} transition-[opacity,transform,filter] delay-[var(--reveal-delay)] duration-[var(--reveal-duration)] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[opacity,transform,filter] data-[reveal-visible=true]:translate-x-0 data-[reveal-visible=true]:translate-y-0 data-[reveal-visible=true]:opacity-100 data-[reveal-visible=true]:blur-0 motion-reduce:translate-x-0 motion-reduce:translate-y-0 ${className}`}
       data-reveal-direction={direction}
       data-reveal-visible={visible ? "true" : "false"}
       style={{
