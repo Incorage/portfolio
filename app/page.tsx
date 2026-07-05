@@ -15,24 +15,24 @@ export default function Home() {
           <div className="flex w-full flex-col items-start gap-4 text-ink">
             <Reveal
               as="h1"
-              className="max-w-[650px] text-[32px] font-semibold leading-normal desktop:text-[40px]"
+              className="max-w-[720px] text-[32px] font-semibold leading-normal desktop:text-[40px]"
               delay={0}
-              duration={700}
+              duration={900}
               id="intro-title"
             >
-              Всем привет! Меня зовут Рома, я продуктовый дизайнер
+              Всем привет! Меня зовут Роман, я продуктовый дизайнер
             </Reveal>
             <Reveal
               as="p"
               className="max-w-[520px] text-base leading-5 desktop:text-xl desktop:leading-6"
               delay={110}
-              duration={650}
+              duration={850}
             >
               <span className="font-semibold text-success">2+ года в продуктах</span>. Проектирую веб- и
               мобильные интерфейсы, работаю с дизайн-системами и сложными пользовательскими сценариями
             </Reveal>
           </div>
-          <Reveal delay={220} duration={600}>
+          <Reveal delay={220} duration={800}>
           <ButtonLink href={profile.telegram} icon="telegram">
             Написать в тг
           </ButtonLink>
@@ -43,7 +43,7 @@ export default function Home() {
           <Reveal
             as="h2"
             className="text-xl font-medium leading-6 text-muted desktop:text-2xl desktop:leading-[30px]"
-            duration={600}
+            duration={800}
             id="portfolio-title"
           >
             Мои работы
@@ -53,21 +53,21 @@ export default function Home() {
           ))}
         </section>
 
-        <Reveal as="section" className="flex w-full flex-col items-center justify-center gap-6 rounded-2xl bg-footer px-6 py-16 text-center" duration={700}>
+        <Reveal as="section" className="flex w-full flex-col items-center justify-center gap-6 rounded-2xl bg-footer px-6 py-16 text-center" duration={900}>
           <Reveal
             as="h2"
             className="max-w-[420px] text-[32px] font-semibold leading-normal text-invert"
             delay={80}
-            duration={650}
+            duration={850}
           >
             Спасибо за просмотр! Буду рад сотрудничеству
           </Reveal>
-          <Reveal delay={180} duration={600}>
+          <Reveal delay={180} duration={800}>
           <ButtonLink href={profile.telegram} icon="telegram">
             Написать в тг
           </ButtonLink>
           </Reveal>
-          <Reveal delay={280} duration={600}>
+          <Reveal delay={280} duration={800}>
           <ButtonLink href={profile.resume} icon="download" variant="inverted">
             Скачать резюме
           </ButtonLink>
@@ -77,14 +77,14 @@ export default function Home() {
         <Reveal
           as="footer"
           className="flex min-h-24 w-full flex-col items-center justify-center gap-6 text-center desktop:flex-row desktop:justify-center"
-          duration={650}
+          duration={850}
         >
-          <Reveal delay={80} duration={550}>
+          <Reveal delay={80} duration={750}>
           <a className="whitespace-nowrap text-xl font-semibold leading-none" href={`mailto:${profile.email}`}>
             {profile.email}
           </a>
           </Reveal>
-          <Reveal delay={180} duration={550}>
+          <Reveal delay={180} duration={750}>
           <div className="flex items-center">
             <SocialIconButton href={profile.telegram} label="Telegram" type="telegram" />
             <SocialIconButton href={profile.vk} label="VK" type="vk" />

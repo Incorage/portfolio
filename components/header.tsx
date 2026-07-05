@@ -42,8 +42,8 @@ export function Header() {
         className="sticky top-0 z-40 -mx-6 flex w-[calc(100%+48px)] items-center justify-between bg-page/90 px-6 py-3 backdrop-blur-md desktop:gap-6"
         data-name="Header Container"
       >
-        <a className="flex shrink-0 items-center gap-2" href="#top" aria-label="Роман Ушаков">
-          <span className="relative size-12 overflow-hidden rounded-full">
+        <a className="group flex shrink-0 items-center gap-2" href="#top" aria-label="Роман Ушаков">
+          <span className="relative size-12 overflow-hidden rounded-full transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110 group-focus-visible:scale-110">
             <Image
               alt=""
               className="absolute left-[-106%] top-[-70%] size-[322%] max-w-none object-cover"

@@ -27,7 +27,7 @@ export function Reveal({
   className = "",
   delay = 0,
   direction = "up",
-  duration = 700,
+  duration = 850,
   once = true,
   style,
   ...props
@@ -66,7 +66,7 @@ export function Reveal({
       ref={(node) => {
         ref.current = node;
       }}
-      className={`reveal opacity-0 blur-sm ${directionClasses[direction]} transition-[opacity,transform,filter] delay-[var(--reveal-delay)] duration-[var(--reveal-duration)] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[opacity,transform,filter] data-[reveal-visible=true]:translate-x-0 data-[reveal-visible=true]:translate-y-0 data-[reveal-visible=true]:opacity-100 data-[reveal-visible=true]:blur-0 motion-reduce:translate-x-0 motion-reduce:translate-y-0 ${className}`}
+      className={`reveal opacity-0 blur-md ${directionClasses[direction]} transition-[opacity,transform,filter] delay-[var(--reveal-delay)] duration-[var(--reveal-duration)] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[opacity,transform,filter] data-[reveal-visible=true]:translate-x-0 data-[reveal-visible=true]:translate-y-0 data-[reveal-visible=true]:opacity-100 data-[reveal-visible=true]:blur-0 motion-reduce:translate-x-0 motion-reduce:translate-y-0 ${className}`}
       data-reveal-direction={direction}
       data-reveal-visible={visible ? "true" : "false"}
       style={{
