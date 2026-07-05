@@ -1,14 +1,20 @@
 "use client";
 
-import { X } from "lucide-react";
-import { ZoomIn } from "lucide-react";
+import { X, ZoomIn } from "lucide-react";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { DragScroll } from "@/components/drag-scroll";
 import { Reveal } from "@/components/reveal";
 import type { Project } from "@/lib/portfolio";
 
 export function ProjectSection({ project }: { project: Project }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const hoverOverlayClass =
+    project.colorClass === "bg-case-1"
+      ? "desktop:group-hover/screen:bg-case-1/85 desktop:group-focus-visible/screen:bg-case-1/85"
+      : project.colorClass === "bg-case-2"
+        ? "desktop:group-hover/screen:bg-case-2/85 desktop:group-focus-visible/screen:bg-case-2/85"
+        : "desktop:group-hover/screen:bg-case-3/85 desktop:group-focus-visible/screen:bg-case-3/85";
 
   useEffect(() => {
     if (!selectedImage) return;
@@ -82,7 +88,7 @@ export function ProjectSection({ project }: { project: Project }) {
               onClick={() => setSelectedImage(src)}
               type="button"
             >
-              <span className="absolute inset-0 overflow-hidden rounded-sm transition-[box-shadow,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/screen:scale-[1.025] group-hover/screen:shadow-[0_14px_34px_rgba(45,44,58,0.16)] group-focus-visible/screen:scale-[1.025] group-focus-visible/screen:shadow-[0_14px_34px_rgba(45,44,58,0.16)]">
+              <span className="absolute inset-0 overflow-hidden rounded-sm transition-[box-shadow,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] desktop:group-hover/screen:scale-[1.025] desktop:group-hover/screen:shadow-[0_14px_34px_rgba(45,44,58,0.16)] desktop:group-focus-visible/screen:scale-[1.025] desktop:group-focus-visible/screen:shadow-[0_14px_34px_rgba(45,44,58,0.16)]">
                 <img
                   alt={`${project.title}, экран ${index + 1}`}
                   className="size-full object-cover"
@@ -90,7 +96,9 @@ export function ProjectSection({ project }: { project: Project }) {
                   loading={index === 0 ? "eager" : "lazy"}
                   src={src}
                 />
-                <span className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-sm bg-black/0 opacity-0 transition-[background-color,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/screen:bg-black/20 group-hover/screen:opacity-100 group-focus-visible/screen:bg-black/20 group-focus-visible/screen:opacity-100">
+                <span
+                  className={`pointer-events-none absolute inset-0 hidden items-center justify-center rounded-sm bg-transparent opacity-0 transition-[background-color,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] desktop:flex desktop:group-hover/screen:opacity-100 desktop:group-focus-visible/screen:opacity-100 ${hoverOverlayClass}`}
+                >
                   <span className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-medium leading-5 text-ink shadow-lg">
                     <ZoomIn aria-hidden className="size-5" strokeWidth={1.8} />
                     Смотреть
@@ -116,7 +124,7 @@ export function ProjectSection({ project }: { project: Project }) {
       <ProjectDetails project={project} />
       </Reveal>
 
-      {selectedImage ? (
+      {selectedImage && typeof document !== "undefined" ? createPortal(
         <div
           aria-modal="true"
           className="fixed inset-0 z-[80] flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm"
@@ -137,7 +145,8 @@ export function ProjectSection({ project }: { project: Project }) {
             onClick={(event) => event.stopPropagation()}
             src={selectedImage}
           />
-        </div>
+        </div>,
+        document.body
       ) : null}
     </section>
   );

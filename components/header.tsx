@@ -38,6 +38,11 @@ export function Header() {
 
   const scrollToTop = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
     const startY = window.scrollY;
     const duration = Math.min(1300, Math.max(800, startY * 0.45));
     const startedAt = window.performance.now();
