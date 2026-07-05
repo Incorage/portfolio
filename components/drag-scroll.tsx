@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type DragScrollProps = {
   children: React.ReactNode;
@@ -12,10 +12,35 @@ export function DragScroll({ children, className = "" }: DragScrollProps) {
   const drag = useRef({ left: 0, moved: false, startX: 0 });
   const suppressClick = useRef(false);
   const [dragging, setDragging] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    if (!("IntersectionObserver" in window)) {
+      setVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(node);
+        }
+      },
+      { rootMargin: "0px 0px -18% 0px", threshold: 0.18 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div
       className={`${className} desktop:cursor-grab desktop:select-none desktop:active:cursor-grabbing`}
+      data-scroll-visible={visible ? "true" : "false"}
       onPointerCancel={() => setDragging(false)}
       onPointerDown={(event) => {
         if (event.pointerType === "touch") return;

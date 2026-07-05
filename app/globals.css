@@ -53,8 +53,8 @@ img {
   width: 100%;
 }
 
-.reveal[data-reveal-visible="true"] .project-scroll-track {
-  animation: project-scroll-nudge 1100ms cubic-bezier(0.16, 1, 0.3, 1) 240ms both;
+.project-scroll-track[data-scroll-visible="true"] {
+  animation: project-scroll-nudge 1100ms cubic-bezier(0.16, 1, 0.3, 1) 180ms both;
 }
 
 @keyframes project-scroll-nudge {

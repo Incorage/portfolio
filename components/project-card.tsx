@@ -1,6 +1,6 @@
 "use client";
 
-import { X, ZoomIn } from "lucide-react";
+import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { DragScroll } from "@/components/drag-scroll";
@@ -9,12 +9,11 @@ import type { Project } from "@/lib/portfolio";
 
 export function ProjectSection({ project }: { project: Project }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const hoverOverlayClass =
-    project.colorClass === "bg-case-1"
-      ? "desktop:group-hover/screen:bg-case-1/85 desktop:group-focus-visible/screen:bg-case-1/85"
-      : project.colorClass === "bg-case-2"
-        ? "desktop:group-hover/screen:bg-case-2/85 desktop:group-focus-visible/screen:bg-case-2/85"
-        : "desktop:group-hover/screen:bg-case-3/85 desktop:group-focus-visible/screen:bg-case-3/85";
+
+  const openImageOnTouch = (src: string) => {
+    if (!window.matchMedia("(pointer: coarse)").matches) return;
+    setSelectedImage(src);
+  };
 
   useEffect(() => {
     if (!selectedImage) return;
@@ -81,11 +80,11 @@ export function ProjectSection({ project }: { project: Project }) {
               aria-label={`Открыть скрин ${index + 1} проекта ${project.title}`}
               className={
                 project.imageKind === "phone"
-                  ? "group/screen relative aspect-[1940/4096] min-h-[422px] min-w-[200px] flex-[1_0_200px] cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-                  : "group/screen relative h-[377.554px] min-w-[700px] flex-[1_0_700px] cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                  ? "group/screen relative aspect-[1940/4096] min-h-[422px] min-w-[200px] flex-[1_0_200px] cursor-zoom-in desktop:cursor-default focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                  : "group/screen relative h-[377.554px] min-w-[700px] flex-[1_0_700px] cursor-zoom-in desktop:cursor-default focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
               }
               key={src}
-              onClick={() => setSelectedImage(src)}
+              onClick={() => openImageOnTouch(src)}
               type="button"
             >
               <span className="absolute inset-0 overflow-hidden rounded-sm transition-[box-shadow,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] desktop:group-hover/screen:scale-[1.025] desktop:group-hover/screen:shadow-[0_14px_34px_rgba(45,44,58,0.16)] desktop:group-focus-visible/screen:scale-[1.025] desktop:group-focus-visible/screen:shadow-[0_14px_34px_rgba(45,44,58,0.16)]">
@@ -96,14 +95,6 @@ export function ProjectSection({ project }: { project: Project }) {
                   loading={index === 0 ? "eager" : "lazy"}
                   src={src}
                 />
-                <span
-                  className={`pointer-events-none absolute inset-0 hidden items-center justify-center rounded-sm bg-transparent opacity-0 transition-[background-color,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] desktop:flex desktop:group-hover/screen:opacity-100 desktop:group-focus-visible/screen:opacity-100 ${hoverOverlayClass}`}
-                >
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-medium leading-5 text-ink shadow-lg">
-                    <ZoomIn aria-hidden className="size-5" strokeWidth={1.8} />
-                    Смотреть
-                  </span>
-                </span>
               </span>
             </button>
           ))}
