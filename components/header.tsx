@@ -26,6 +26,35 @@ export function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!menuMounted) return;
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuMounted]);
+
+  const scrollToTop = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    const startY = window.scrollY;
+    const duration = Math.min(1300, Math.max(800, startY * 0.45));
+    const startedAt = window.performance.now();
+
+    const animateScroll = (currentTime: number) => {
+      const elapsed = currentTime - startedAt;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      window.scrollTo(0, startY * (1 - eased));
+
+      if (progress < 1) window.requestAnimationFrame(animateScroll);
+    };
+
+    window.requestAnimationFrame(animateScroll);
+  };
+
   const openMenu = () => {
     setMenuMounted(true);
     window.requestAnimationFrame(() => setMenuOpen(true));
@@ -42,7 +71,7 @@ export function Header() {
         className="sticky top-0 z-40 -mx-6 flex w-[calc(100%+48px)] items-center justify-between bg-page/90 px-6 py-3 backdrop-blur-md desktop:gap-6"
         data-name="Header Container"
       >
-        <a className="group flex shrink-0 items-center gap-2" href="#top" aria-label="Роман Ушаков">
+        <a className="group flex shrink-0 items-center gap-2" href="#top" aria-label="Роман Ушаков" onClick={scrollToTop}>
           <span className="relative size-12 overflow-hidden rounded-full transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110 group-focus-visible:scale-110">
             <Image
               alt=""

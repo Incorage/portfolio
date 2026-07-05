@@ -1,6 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
+import { ZoomIn } from "lucide-react";
 import { useEffect, useState } from "react";
 import { DragScroll } from "@/components/drag-scroll";
 import { Reveal } from "@/components/reveal";
@@ -68,29 +69,45 @@ export function ProjectSection({ project }: { project: Project }) {
         </Reveal>
 
         <Reveal delay={290} duration={950}>
-        <DragScroll className="scrollbar-none -mx-8 flex w-[calc(100%+64px)] items-start gap-6 overflow-x-auto px-8 max-[599px]:-mx-6 max-[599px]:w-[calc(100%+48px)] max-[599px]:px-6">
+        <DragScroll className="project-scroll-track scrollbar-none -mx-8 flex w-[calc(100%+64px)] items-start gap-6 overflow-x-auto px-8 py-3 max-[599px]:-mx-6 max-[599px]:w-[calc(100%+48px)] max-[599px]:px-6">
           {project.images.map((src, index) => (
             <button
               aria-label={`Открыть скрин ${index + 1} проекта ${project.title}`}
               className={
                 project.imageKind === "phone"
-                  ? "relative aspect-[1940/4096] min-h-[422px] min-w-[200px] flex-[1_0_200px] cursor-zoom-in overflow-hidden transition-shadow duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-[0_12px_30px_rgba(45,44,58,0.12)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary focus-visible:shadow-[0_12px_30px_rgba(45,44,58,0.12)]"
-                  : "relative h-[377.554px] min-w-[700px] flex-[1_0_700px] cursor-zoom-in overflow-hidden transition-shadow duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-[0_12px_30px_rgba(45,44,58,0.12)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary focus-visible:shadow-[0_12px_30px_rgba(45,44,58,0.12)]"
+                  ? "group/screen relative aspect-[1940/4096] min-h-[422px] min-w-[200px] flex-[1_0_200px] cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                  : "group/screen relative h-[377.554px] min-w-[700px] flex-[1_0_700px] cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
               }
               key={src}
               onClick={() => setSelectedImage(src)}
               type="button"
             >
-              <img
-                alt={`${project.title}, экран ${index + 1}`}
-                className="size-full object-cover"
-                draggable={false}
-                loading={index === 0 ? "eager" : "lazy"}
-                src={src}
-              />
+              <span className="absolute inset-0 overflow-hidden rounded-sm transition-[box-shadow,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/screen:scale-[1.025] group-hover/screen:shadow-[0_14px_34px_rgba(45,44,58,0.16)] group-focus-visible/screen:scale-[1.025] group-focus-visible/screen:shadow-[0_14px_34px_rgba(45,44,58,0.16)]">
+                <img
+                  alt={`${project.title}, экран ${index + 1}`}
+                  className="size-full object-cover"
+                  draggable={false}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  src={src}
+                />
+                <span className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-sm bg-black/0 opacity-0 transition-[background-color,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/screen:bg-black/20 group-hover/screen:opacity-100 group-focus-visible/screen:bg-black/20 group-focus-visible/screen:opacity-100">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-medium leading-5 text-ink shadow-lg">
+                    <ZoomIn aria-hidden className="size-5" strokeWidth={1.8} />
+                    Смотреть
+                  </span>
+                </span>
+              </span>
             </button>
           ))}
         </DragScroll>
+        <p
+          className={`inline-flex items-center gap-2 text-xs leading-4 text-muted ${
+            project.imageKind === "phone" ? "desktop:hidden" : ""
+          }`}
+        >
+          <img alt="" aria-hidden className="size-4" src="drag-icon.svg" />
+          <span>Потяните в сторону, чтобы посмотреть все скрины</span>
+        </p>
         </Reveal>
       </div>
       </Reveal>

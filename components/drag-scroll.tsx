@@ -9,7 +9,7 @@ type DragScrollProps = {
 
 export function DragScroll({ children, className = "" }: DragScrollProps) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const drag = useRef({ left: 0, startX: 0 });
+  const drag = useRef({ left: 0, moved: false, startX: 0 });
   const [dragging, setDragging] = useState(false);
 
   return (
@@ -21,18 +21,28 @@ export function DragScroll({ children, className = "" }: DragScrollProps) {
         if (!node) return;
 
         setDragging(true);
-        drag.current = { left: node.scrollLeft, startX: event.clientX };
+        drag.current = { left: node.scrollLeft, moved: false, startX: event.clientX };
         node.setPointerCapture(event.pointerId);
       }}
       onPointerMove={(event) => {
         const node = ref.current;
         if (!node || !dragging) return;
-        event.preventDefault();
-        node.scrollLeft = drag.current.left - (event.clientX - drag.current.startX);
+        const distance = event.clientX - drag.current.startX;
+        if (Math.abs(distance) > 6) drag.current.moved = true;
+        if (drag.current.moved) {
+          event.preventDefault();
+          node.scrollLeft = drag.current.left - distance;
+        }
       }}
       onPointerUp={(event) => {
         ref.current?.releasePointerCapture(event.pointerId);
         setDragging(false);
+      }}
+      onClickCapture={(event) => {
+        if (!drag.current.moved) return;
+        event.preventDefault();
+        event.stopPropagation();
+        drag.current.moved = false;
       }}
       ref={ref}
     >
