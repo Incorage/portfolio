@@ -9,20 +9,20 @@ export const assets = {
   logoFlow: publicAsset("/cases/Cases/Company_Logo/Logo_Case_2.svg"),
   logoCentr: publicAsset("/cases/Cases/Company_Logo/Logo_Case_3.svg"),
   project1: [
-    publicAsset("/cases/Cases/Case_1/1.png"),
-    publicAsset("/cases/Cases/Case_1/2.png"),
-    publicAsset("/cases/Cases/Case_1/3.png"),
-    publicAsset("/cases/Cases/Case_1/4.png")
+    publicAsset("/cases/Cases/Case_1/1.webp"),
+    publicAsset("/cases/Cases/Case_1/2.webp"),
+    publicAsset("/cases/Cases/Case_1/3.webp"),
+    publicAsset("/cases/Cases/Case_1/4.webp")
   ],
   project2: [
-    publicAsset("/cases/Cases/Case_2/1.png"),
-    publicAsset("/cases/Cases/Case_2/2.png"),
-    publicAsset("/cases/Cases/Case_2/3.png"),
-    publicAsset("/cases/Cases/Case_2/4.png")
+    publicAsset("/cases/Cases/Case_2/1.webp"),
+    publicAsset("/cases/Cases/Case_2/2.webp"),
+    publicAsset("/cases/Cases/Case_2/3.webp"),
+    publicAsset("/cases/Cases/Case_2/4.webp")
   ],
   project3: [
-    publicAsset("/cases/Cases/Case_3/1.png"),
-    publicAsset("/cases/Cases/Case_3/2.png"),
-    publicAsset("/cases/Cases/Case_3/3.png")
+    publicAsset("/cases/Cases/Case_3/1.webp"),
+    publicAsset("/cases/Cases/Case_3/2.webp"),
+    publicAsset("/cases/Cases/Case_3/3.webp")
   ]
 } as const;

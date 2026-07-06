@@ -80,14 +80,21 @@ export function ProjectSection({ project }: { project: Project }) {
               aria-label={`Открыть скрин ${index + 1} проекта ${project.title}`}
               className={
                 project.imageKind === "phone"
-                  ? "group/screen relative aspect-[1940/4096] min-h-[422px] min-w-[200px] flex-[1_0_200px] cursor-zoom-in desktop:cursor-default focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-                  : "group/screen relative h-[377.554px] min-w-[700px] flex-[1_0_700px] cursor-zoom-in desktop:cursor-default focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                  ? "project-screen group/screen relative aspect-[1940/4096] min-h-[422px] min-w-[200px] flex-[1_0_200px] cursor-zoom-in desktop:cursor-default focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                  : "project-screen group/screen relative h-[377.554px] min-w-[700px] flex-[1_0_700px] cursor-zoom-in desktop:cursor-default focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
               }
               key={src}
               onClick={() => openImageOnTouch(src)}
+              style={{ "--screen-reveal-delay": `${1080 + index * 420}ms` } as React.CSSProperties}
               type="button"
             >
-              <span className="absolute inset-0 overflow-hidden rounded-sm transition-[box-shadow,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] desktop:group-hover/screen:scale-[1.025] desktop:group-hover/screen:shadow-[0_14px_34px_rgba(45,44,58,0.16)] desktop:group-focus-visible/screen:scale-[1.025] desktop:group-focus-visible/screen:shadow-[0_14px_34px_rgba(45,44,58,0.16)]">
+              <span
+                className={`absolute inset-0 overflow-hidden rounded-sm transition-[border-radius,box-shadow,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] desktop:group-hover/screen:scale-[1.025] desktop:group-hover/screen:shadow-[0_14px_34px_rgba(45,44,58,0.16)] desktop:group-focus-visible/screen:scale-[1.025] desktop:group-focus-visible/screen:shadow-[0_14px_34px_rgba(45,44,58,0.16)] ${
+                  project.colorClass === "bg-case-1" || project.colorClass === "bg-case-2"
+                    ? "desktop:group-hover/screen:rounded-[34px] desktop:group-focus-visible/screen:rounded-[34px]"
+                    : ""
+                }`}
+              >
                 <img
                   alt={`${project.title}, экран ${index + 1}`}
                   className="size-full object-cover"
