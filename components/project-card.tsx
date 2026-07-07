@@ -178,7 +178,7 @@ function ProjectDetails({ project }: { project: Project }) {
   return (
     <div className="project-details-grid w-full">
       {blocks.map((block, index) => (
-        <Reveal delay={index * 110} duration={850} key={block.title}>
+        <Reveal delay={index * 150} duration={780} key={block.title}>
           <InfoBlock title={block.title}>{block.content}</InfoBlock>
         </Reveal>
       ))}
