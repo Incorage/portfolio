@@ -73,7 +73,7 @@ export function ProjectSection({ project }: { project: Project }) {
         </div>
         </Reveal>
 
-        <Reveal delay={290} duration={950}>
+        <Reveal delay={260} duration={520}>
         <DragScroll className="project-scroll-track scrollbar-none -mx-8 flex w-[calc(100%+64px)] items-start gap-6 overflow-x-auto px-8 py-3 max-[599px]:-mx-6 max-[599px]:w-[calc(100%+48px)] max-[599px]:px-6">
           {project.images.map((src, index) => (
             <button
@@ -85,7 +85,7 @@ export function ProjectSection({ project }: { project: Project }) {
               }
               key={src}
               onClick={() => openImageOnTouch(src)}
-              style={{ "--screen-reveal-delay": `${1080 + index * 420}ms` } as React.CSSProperties}
+              style={{ "--screen-reveal-delay": `${180 + index * 150}ms` } as React.CSSProperties}
               type="button"
             >
               <span
