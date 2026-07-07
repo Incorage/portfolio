@@ -85,7 +85,7 @@ export function ProjectSection({ project }: { project: Project }) {
               }
               key={src}
               onClick={() => openImageOnTouch(src)}
-              style={{ "--screen-reveal-delay": `${180 + index * 150}ms` } as React.CSSProperties}
+              style={{ "--screen-reveal-delay": `${index * 70}ms` } as React.CSSProperties}
               type="button"
             >
               <span
