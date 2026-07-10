@@ -1,6 +1,6 @@
 "use client";
 
-import { Copy, MapPin, Menu, X } from "lucide-react";
+import { X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { assets } from "@/lib/assets";
@@ -93,7 +93,7 @@ export function Header() {
         </a>
 
         <div className="hidden shrink-0 items-center gap-2 desktop:flex">
-          <MapPin aria-hidden className="size-6 text-muted" />
+          <img alt="" aria-hidden className="size-6" src={assets.geolocationIcon} />
           <span className="whitespace-nowrap text-xl leading-6 text-muted">{profile.location}</span>
         </div>
 
@@ -106,7 +106,7 @@ export function Header() {
             type="button"
           >
             Почта
-            <Copy aria-hidden className="size-6" strokeWidth={1.8} />
+            <img alt="" aria-hidden className="size-6" src={assets.copyIcon} />
           </button>
           <ButtonLink href={profile.resume} icon="download" variant="plain">
             Скачать резюме
@@ -120,7 +120,7 @@ export function Header() {
           onClick={openMenu}
           type="button"
         >
-          <Menu aria-hidden className="size-6" />
+          <img alt="" aria-hidden className="size-6" src={assets.menuIcon} />
         </button>
       </header>
 
@@ -132,7 +132,7 @@ export function Header() {
         }`}
         role="status"
       >
-        <Copy aria-hidden className="size-5" strokeWidth={1.8} />
+        <img alt="" aria-hidden className="size-5" src={assets.copyIcon} />
         <span>Почта скопирована</span>
       </div>
     </>
@@ -199,7 +199,7 @@ function MobileMenu({
           type="button"
         >
           Почта
-          <Copy aria-hidden className="size-6" strokeWidth={1.8} />
+          <img alt="" aria-hidden className="size-6" src={assets.copyIcon} />
         </button>
         <a
           className={`flex h-12 w-full items-center justify-center rounded-full px-4 text-xl font-semibold leading-6 text-ink hover:bg-black/5 active:bg-black/10 ${itemClass}`}

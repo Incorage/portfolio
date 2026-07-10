@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { assets } from "@/lib/assets";
 
 type SocialIconButtonProps = {
@@ -18,7 +17,7 @@ export function SocialIconButton({ href, label, type }: SocialIconButtonProps) {
       rel="noreferrer"
       target="_blank"
     >
-      <Image alt="" aria-hidden className="size-6" height={24} src={src} unoptimized width={24} />
+      <img alt="" aria-hidden className="size-6" src={src} />
     </a>
   );
 }

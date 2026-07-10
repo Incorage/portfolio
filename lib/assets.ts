@@ -2,9 +2,13 @@ const publicAsset = (path: string) => path.replace(/^\//, "");
 
 export const assets = {
   avatar: "https://www.figma.com/api/mcp/asset/6b3f8a16-f7f4-47c2-9db8-db5391ad7d6b",
-  telegramWhite: "https://www.figma.com/api/mcp/asset/6afedb02-3da7-4a7d-88b3-475d01588ed9",
-  telegramIcon: "https://www.figma.com/api/mcp/asset/b7c57178-9275-4c11-aeff-ad565ec92763",
-  vkIcon: "https://www.figma.com/api/mcp/asset/fdd2c062-f6f4-4401-9504-cc6a3c662753",
+  telegramWhite: publicAsset("/icons/button-tg-icon.svg"),
+  telegramIcon: publicAsset("/icons/icon-button-social-telegram.svg"),
+  vkIcon: publicAsset("/icons/icon-button-social-vk.svg"),
+  copyIcon: publicAsset("/icons/email-copy-button.svg"),
+  geolocationIcon: publicAsset("/icons/geolocation-icon.svg"),
+  menuIcon: publicAsset("/icons/menu-button-icon.svg"),
+  downloadIcon: publicAsset("/icons/resume-button-icon-download.svg"),
   logoKurt: publicAsset("/cases/Cases/Company_Logo/Logo_Case_1.svg"),
   logoFlow: publicAsset("/cases/Cases/Company_Logo/Logo_Case_2.svg"),
   logoCentr: publicAsset("/cases/Cases/Company_Logo/Logo_Case_3.svg"),

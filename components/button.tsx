@@ -1,5 +1,3 @@
-import { Download } from "lucide-react";
-import Image from "next/image";
 import { assets } from "@/lib/assets";
 
 type ButtonLinkProps = {
@@ -23,18 +21,17 @@ export function ButtonLink({ href, children, variant = "primary", icon, onClick 
   return (
     <a className={`${base} ${styles[variant]}`} href={href} onClick={onClick} rel="noreferrer" target="_blank">
       {icon === "telegram" ? (
-        <Image
+        <img
           alt=""
           aria-hidden
           className="relative z-10 size-6"
-          height={24}
           src={assets.telegramWhite}
-          unoptimized
-          width={24}
         />
       ) : null}
       <span className="relative z-10">{children}</span>
-      {icon === "download" ? <Download aria-hidden className="relative z-10 size-6" strokeWidth={2} /> : null}
+      {icon === "download" ? (
+        <img alt="" aria-hidden className="relative z-10 size-6" src={assets.downloadIcon} />
+      ) : null}
     </a>
   );
 }
