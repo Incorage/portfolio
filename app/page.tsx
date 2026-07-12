@@ -13,26 +13,28 @@ export default function Home() {
 
         <section className="flex w-full flex-col items-start gap-8" aria-labelledby="intro-title">
           <div className="flex w-full flex-col items-start gap-4 text-ink">
+            <Reveal as="p" className="text-xs leading-4 text-ink" delay={0} duration={700}>
+              Продуктовый дизайнер <span className="mx-1">•</span> 2+ года
+            </Reveal>
             <Reveal
               as="h1"
-              className="max-w-[720px] text-[32px] font-semibold leading-normal desktop:text-[40px]"
-              delay={0}
+              className="max-w-[540px] text-[32px] font-semibold leading-normal desktop:max-w-[860px] desktop:text-[40px]"
+              delay={90}
               duration={900}
               id="intro-title"
             >
-              Всем привет! Меня зовут Роман, я продуктовый дизайнер
+              Проектирую сложные продукты, которыми легко пользоваться
             </Reveal>
             <Reveal
               as="p"
-              className="max-w-[520px] text-base leading-5 desktop:text-xl desktop:leading-6"
-              delay={110}
+              className="max-w-[520px] text-base leading-5 desktop:max-w-[650px] desktop:text-xl desktop:leading-6"
+              delay={180}
               duration={850}
             >
-              <span className="font-semibold text-success">2+ года в продуктах</span>. Проектирую веб- и
-              мобильные интерфейсы, работаю с дизайн-системами и сложными пользовательскими сценариями
+              Я Роман, продуктовый дизайнер. Работаю с бизнес-процессами, сложными пользовательскими сценариями и дизайн-системами
             </Reveal>
           </div>
-          <Reveal delay={220} duration={800}>
+          <Reveal delay={290} duration={800}>
           <ButtonLink href={profile.telegram} icon="telegram">
             Написать в тг
           </ButtonLink>

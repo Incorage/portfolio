@@ -30,7 +30,14 @@ export function ButtonLink({ href, children, variant = "primary", icon, onClick 
       ) : null}
       <span className="relative z-10">{children}</span>
       {icon === "download" ? (
-        <img alt="" aria-hidden className="relative z-10 size-6" src={assets.downloadIcon} />
+        <span
+          aria-hidden
+          className="relative z-10 size-6 bg-current"
+          style={{
+            WebkitMask: `url(${assets.downloadIcon}) center / contain no-repeat`,
+            mask: `url(${assets.downloadIcon}) center / contain no-repeat`
+          }}
+        />
       ) : null}
     </a>
   );
