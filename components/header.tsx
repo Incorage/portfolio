@@ -1,7 +1,6 @@
 "use client";
 
 import { X } from "lucide-react";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { assets } from "@/lib/assets";
 import { profile } from "@/lib/portfolio";
@@ -78,13 +77,10 @@ export function Header() {
       >
         <a className="group flex shrink-0 items-center gap-2" href="#top" aria-label="Роман Ушаков" onClick={scrollToTop}>
           <span className="relative size-12 overflow-hidden rounded-full transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110 group-focus-visible:scale-110">
-            <Image
+            <img
               alt=""
-              className="absolute left-[-106%] top-[-70%] size-[322%] max-w-none object-cover"
-              height={155}
-              priority
+              className="absolute inset-0 size-full object-cover"
               src={assets.avatar}
-              width={155}
             />
           </span>
           <span className="whitespace-nowrap text-base font-medium leading-5 desktop:text-xl desktop:leading-none">

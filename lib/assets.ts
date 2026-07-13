@@ -1,7 +1,7 @@
 const publicAsset = (path: string) => path.replace(/^\//, "");
 
 export const assets = {
-  avatar: "https://www.figma.com/api/mcp/asset/6b3f8a16-f7f4-47c2-9db8-db5391ad7d6b",
+  avatar: publicAsset("/avatar.webp"),
   telegramWhite: publicAsset("/icons/button-tg-icon.svg"),
   telegramIcon: publicAsset("/icons/icon-button-social-telegram.svg"),
   vkIcon: publicAsset("/icons/icon-button-social-vk.svg"),
