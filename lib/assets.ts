@@ -9,6 +9,8 @@ export const assets = {
   geolocationIcon: publicAsset("/icons/geolocation-icon.svg"),
   menuIcon: publicAsset("/icons/menu-button-icon.svg"),
   downloadIcon: publicAsset("/icons/resume-button-icon-download.svg"),
+  languageRu: publicAsset("/icons/language_ru.svg"),
+  languageEn: publicAsset("/icons/language_en.svg"),
   logoKurt: publicAsset("/cases/Cases/Company_Logo/Logo_Case_1.svg"),
   logoFlow: publicAsset("/cases/Cases/Company_Logo/Logo_Case_2.svg"),
   logoCentr: publicAsset("/cases/Cases/Company_Logo/Logo_Case_3.svg"),

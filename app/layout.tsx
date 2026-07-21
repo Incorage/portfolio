@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -9,9 +9,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Роман Ушаков - Продуктовый дизайнер",
+  title: "Роман Ушаков - UX/UI-дизайнер",
   description:
-    "Портфолио продуктового дизайнера: CRM, мобильные сервисы, дизайн-системы и сложные пользовательские сценарии.",
+    "Портфолио UX/UI-дизайнера: CRM, мобильные сервисы, дизайн-системы и сложные пользовательские сценарии.",
   icons: {
     icon: "favicon.svg"
   }
