@@ -45,6 +45,15 @@ export function Header({
 
   const scrollToTop = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
+
+    const isTouchDevice =
+      window.matchMedia("(pointer: coarse)").matches || navigator.maxTouchPoints > 0;
+
+    if (isTouchDevice) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
     const startY = window.scrollY;
     const duration = Math.min(1500, Math.max(850, startY * 0.3));
     const startedAt = window.performance.now();
