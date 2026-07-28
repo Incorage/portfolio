@@ -45,22 +45,18 @@ export function Header({
 
   const scrollToTop = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    if (window.matchMedia("(pointer: coarse)").matches) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-
     const startY = window.scrollY;
-    const duration = Math.min(1300, Math.max(800, startY * 0.45));
+    const duration = Math.min(1500, Math.max(850, startY * 0.3));
     const startedAt = window.performance.now();
 
     const animateScroll = (currentTime: number) => {
-      const elapsed = currentTime - startedAt;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const progress = Math.min((currentTime - startedAt) / duration, 1);
+      const eased =
+        progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
 
       window.scrollTo(0, startY * (1 - eased));
-
       if (progress < 1) window.requestAnimationFrame(animateScroll);
     };
 
@@ -81,7 +77,6 @@ export function Header({
     <>
       <header
         className="sticky top-0 z-40 -mx-6 flex w-[calc(100%+48px)] items-center justify-between bg-page/90 px-6 py-3 backdrop-blur-md desktop:gap-6"
-        data-name="Header Container"
       >
         <a
           aria-label={profile.name[language]}

@@ -9,6 +9,7 @@ export type Project = {
   logoAlt: string;
   colorClass: string;
   images: readonly string[];
+  previewImages: readonly string[];
   imageKind: "phone" | "desktop";
   note?: string;
   result: string;
@@ -125,6 +126,7 @@ export const projects = {
       logoAlt: "КУРТ",
       colorClass: "bg-case-1",
       images: assets.project1,
+      previewImages: assets.project1Previews,
       imageKind: "phone",
       note: "Все имена и записи являются вымышленными",
       result:
@@ -144,6 +146,7 @@ export const projects = {
       logoAlt: "Flow",
       colorClass: "bg-case-2",
       images: assets.project2,
+      previewImages: assets.project2Previews,
       imageKind: "phone",
       result:
         "Спроектирован мобильный сервис для поиска и бронирования смен с геолокацией и поддержкой удалённых объектов. Пользователи получили возможность самостоятельно находить доступные вакансии и выходить на смены без участия менеджеров",
@@ -162,6 +165,7 @@ export const projects = {
       logoAlt: "ЦУП",
       colorClass: "bg-case-3",
       images: assets.project3,
+      previewImages: assets.project3Previews,
       imageKind: "desktop",
       note: "Все записи в таблице вымышленные",
       result:
@@ -189,6 +193,7 @@ export const projects = {
       logoAlt: "KURT",
       colorClass: "bg-case-1",
       images: assets.project1,
+      previewImages: assets.project1Previews,
       imageKind: "phone",
       note: "All names and records are fictional",
       result:
@@ -208,6 +213,7 @@ export const projects = {
       logoAlt: "Flow",
       colorClass: "bg-case-2",
       images: assets.project2,
+      previewImages: assets.project2Previews,
       imageKind: "phone",
       result:
         "Designed a mobile service for finding and booking shifts with geolocation and support for remote sites. Users can independently find available jobs and take shifts without manager involvement",
@@ -225,6 +231,7 @@ export const projects = {
       logoAlt: "CUP",
       colorClass: "bg-case-3",
       images: assets.project3,
+      previewImages: assets.project3Previews,
       imageKind: "desktop",
       note: "All records in the table are fictional",
       result:

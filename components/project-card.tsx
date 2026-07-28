@@ -1,19 +1,50 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { DragScroll } from "@/components/drag-scroll";
 import { Reveal } from "@/components/reveal";
+import { assets } from "@/lib/assets";
 import type { Project, SiteCopy } from "@/lib/portfolio";
 
 export function ProjectSection({ copy, project }: { copy: SiteCopy["projectLabels"]; project: Project }) {
+  const [caseVisible, setCaseVisible] = useState(false);
+  const [loadedImages, setLoadedImages] = useState<Set<string>>(() => new Set());
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const preparingImages = useRef<Set<string>>(new Set());
+  const screensVisible = caseVisible && loadedImages.size === project.previewImages.length;
 
   const openImageOnTouch = (src: string) => {
     if (!window.matchMedia("(pointer: coarse)").matches) return;
     setSelectedImage(src);
   };
+
+  const markImageReady = useCallback((src: string) => {
+    setLoadedImages((currentImages) => {
+      if (currentImages.has(src)) return currentImages;
+      const nextImages = new Set(currentImages);
+      nextImages.add(src);
+      return nextImages;
+    });
+  }, []);
+
+  const prepareImage = useCallback(
+    async (image: HTMLImageElement, src: string) => {
+      if (preparingImages.current.has(src)) return;
+      preparingImages.current.add(src);
+
+      try {
+        await image.decode();
+      } catch {
+        markImageReady(src);
+        return;
+      }
+
+      markImageReady(src);
+    },
+    [markImageReady]
+  );
 
   useEffect(() => {
     if (!selectedImage) return;
@@ -33,45 +64,47 @@ export function ProjectSection({ copy, project }: { copy: SiteCopy["projectLabel
 
   return (
     <section className="flex w-full flex-col gap-8" aria-labelledby={`${project.year}-${project.logoAlt}`}>
-      <Reveal duration={900}>
+      <Reveal onReveal={() => setCaseVisible(true)}>
         <div className={`${project.colorClass} flex w-full flex-col gap-6 overflow-hidden rounded-2xl p-8 max-[599px]:p-6`}>
-          <Reveal delay={90} duration={850}>
-            <div className="flex w-full items-center gap-6">
-              <div className="min-w-0 flex-1">
-                <div
-                  className={
-                    project.logoAlt === "КУРТ" || project.logoAlt === "KURT"
-                      ? "relative h-[60px] w-full max-w-[235px]"
-                      : "relative h-[60px] w-full max-w-[100px] overflow-hidden"
-                  }
-                >
-                  <img alt={project.logoAlt} className="size-full object-contain object-left" src={project.logo} />
-                </div>
-              </div>
-              <p className="shrink-0 text-base leading-5 desktop:text-xl desktop:leading-6">{project.year}</p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={180} duration={850}>
-            <div className="flex w-full flex-col gap-1 text-ink">
-              <h2
-                className="max-w-[460px] text-2xl font-medium leading-[30px] desktop:text-[32px] desktop:leading-10"
-                id={`${project.year}-${project.logoAlt}`}
+          <div className="flex w-full items-center gap-6">
+            <div className="min-w-0 flex-1">
+              <div
+                className={
+                  project.logo === assets.logoKurt
+                    ? "relative h-[60px] w-full max-w-[235px]"
+                    : "relative h-[60px] w-full max-w-[100px] overflow-hidden"
+                }
               >
-                {project.title}
-              </h2>
-              {project.note ? (
-                <p className="text-xs leading-4">
-                  <span className="text-danger">*</span>
-                  {project.note}
-                </p>
-              ) : null}
+                <img alt={project.logoAlt} className="size-full object-contain object-left" src={project.logo} />
+              </div>
             </div>
-          </Reveal>
+            <p className="shrink-0 text-base leading-5 desktop:text-xl desktop:leading-6">{project.year}</p>
+          </div>
 
-          <Reveal delay={260} duration={520}>
-            <DragScroll className="project-scroll-track scrollbar-none -mx-8 flex w-[calc(100%+64px)] items-start gap-6 overflow-x-auto px-8 py-3 max-[599px]:-mx-6 max-[599px]:w-[calc(100%+48px)] max-[599px]:px-6">
-              {project.images.map((src, index) => (
+          <div className="flex w-full flex-col gap-1 text-ink">
+            <h2
+              className="max-w-[460px] text-2xl font-medium leading-[30px] desktop:text-[32px] desktop:leading-10"
+              id={`${project.year}-${project.logoAlt}`}
+            >
+              {project.title}
+            </h2>
+            {project.note ? (
+              <p className="text-xs leading-4">
+                <span className="text-danger">*</span>
+                {project.note}
+              </p>
+            ) : null}
+          </div>
+
+          <DragScroll
+            className="project-screens scrollbar-none -mx-8 flex w-[calc(100%+64px)] items-start gap-6 overflow-x-auto px-8 py-3 max-[599px]:-mx-6 max-[599px]:w-[calc(100%+48px)] max-[599px]:px-6"
+            nudge={screensVisible}
+            screensVisible={screensVisible}
+          >
+            {project.images.map((src, index) => {
+              const previewSrc = project.previewImages[index] ?? src;
+
+              return (
                 <button
                   aria-label={copy.openImage(index + 1, project.title)}
                   className={
@@ -81,7 +114,6 @@ export function ProjectSection({ copy, project }: { copy: SiteCopy["projectLabel
                   }
                   key={src}
                   onClick={() => openImageOnTouch(src)}
-                  style={{ "--screen-reveal-delay": `${index * 70}ms` } as React.CSSProperties}
                   type="button"
                 >
                   <span
@@ -94,27 +126,36 @@ export function ProjectSection({ copy, project }: { copy: SiteCopy["projectLabel
                     <img
                       alt={`${project.title}, screen ${index + 1}`}
                       className="size-full object-cover"
+                      decoding="async"
                       draggable={false}
-                      loading={index === 0 ? "eager" : "lazy"}
-                      src={src}
+                      loading="eager"
+                      onError={() => markImageReady(previewSrc)}
+                      onLoad={(event) => {
+                        void prepareImage(event.currentTarget, previewSrc);
+                      }}
+                      ref={(image) => {
+                        if (image) void prepareImage(image, previewSrc);
+                      }}
+                      src={previewSrc}
                     />
                   </span>
                 </button>
-              ))}
-            </DragScroll>
-            <p
-              className={`inline-flex items-center gap-2 text-xs leading-4 text-muted ${
-                project.imageKind === "phone" ? "desktop:hidden" : ""
-              }`}
-            >
-              <img alt="" aria-hidden className="size-4" src="drag-icon.svg" />
-              <span>{copy.dragHint}</span>
-            </p>
-          </Reveal>
+              );
+            })}
+          </DragScroll>
+
+          <p
+            className={`inline-flex items-center gap-2 text-xs leading-4 text-muted ${
+              project.imageKind === "phone" ? "desktop:hidden" : ""
+            }`}
+          >
+            <img alt="" aria-hidden className="size-4" src={assets.dragIcon} />
+            <span>{copy.dragHint}</span>
+          </p>
         </div>
       </Reveal>
 
-      <Reveal delay={120} duration={850}>
+      <Reveal>
         <ProjectDetails copy={copy} project={project} />
       </Reveal>
 
@@ -175,10 +216,10 @@ function ProjectDetails({ copy, project }: { copy: SiteCopy["projectLabels"]; pr
 
   return (
     <div className="project-details-grid w-full">
-      {blocks.map((block, index) => (
-        <Reveal delay={index * 150} duration={780} key={block.title}>
-          <InfoBlock title={block.title}>{block.content}</InfoBlock>
-        </Reveal>
+      {blocks.map((block) => (
+        <InfoBlock key={block.title} title={block.title}>
+          {block.content}
+        </InfoBlock>
       ))}
     </div>
   );

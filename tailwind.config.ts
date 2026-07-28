@@ -15,7 +15,6 @@ const config: Config = {
         "case-3": "#dfe9f3",
         footer: "#4f4bcd",
         invert: "#ebebeb",
-        success: "#1daf15",
         danger: "#c01313"
       },
       fontFamily: {

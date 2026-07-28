@@ -1,48 +1,57 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type DragScrollProps = {
   children: React.ReactNode;
   className?: string;
+  nudge?: boolean;
+  screensVisible?: boolean;
 };
 
-export function DragScroll({ children, className = "" }: DragScrollProps) {
+export function DragScroll({
+  children,
+  className = "",
+  nudge = false,
+  screensVisible = true
+}: DragScrollProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const drag = useRef({ left: 0, moved: false, startX: 0 });
+  const hasNudged = useRef(false);
+  const nudgeTimers = useRef<number[]>([]);
   const suppressClick = useRef(false);
   const [dragging, setDragging] = useState(false);
-  const [visible, setVisible] = useState(false);
+  const [nudgePhase, setNudgePhase] = useState<"idle" | "forward" | "back">("idle");
+
+  const clearNudgeTimers = useCallback(() => {
+    nudgeTimers.current.forEach((timer) => window.clearTimeout(timer));
+    nudgeTimers.current = [];
+  }, []);
 
   useEffect(() => {
     const node = ref.current;
-    if (!node) return;
+    if (!nudge || !node || hasNudged.current) return;
 
-    if (!("IntersectionObserver" in window)) {
-      setVisible(true);
-      return;
-    }
+    hasNudged.current = true;
+    if (node.scrollWidth <= node.clientWidth + 2) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(node);
-        }
-      },
-      { rootMargin: "0px 0px -18% 0px", threshold: 0.18 }
-    );
+    nudgeTimers.current = [
+      window.setTimeout(() => setNudgePhase("forward"), 940),
+      window.setTimeout(() => setNudgePhase("back"), 1320)
+    ];
 
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
+    return clearNudgeTimers;
+  }, [clearNudgeTimers, nudge]);
 
   return (
     <div
-      className={`${className} desktop:cursor-grab desktop:select-none desktop:active:cursor-grabbing`}
-      data-scroll-visible={visible ? "true" : "false"}
+      className={`drag-scroll ${className} desktop:cursor-grab desktop:select-none desktop:active:cursor-grabbing`}
+      data-nudge-phase={nudgePhase}
+      data-screens-visible={screensVisible ? "true" : "false"}
       onPointerCancel={() => setDragging(false)}
       onPointerDown={(event) => {
+        clearNudgeTimers();
+        setNudgePhase("back");
         if (event.pointerType === "touch") return;
 
         const node = ref.current;

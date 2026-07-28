@@ -7,33 +7,26 @@ type RevealProps = {
   as?: "div" | "section" | "footer" | "h1" | "h2" | "h3" | "p" | "span";
   children: React.ReactNode;
   className?: string;
-  direction?: "up" | "down" | "left" | "right" | "none";
   delay?: number;
-  duration?: number;
-  once?: boolean;
+  onReveal?: () => void;
 } & React.HTMLAttributes<HTMLElement>;
-
-const directionClasses = {
-  up: "translate-y-10",
-  down: "-translate-y-10",
-  left: "translate-x-10",
-  right: "-translate-x-10",
-  none: "translate-x-0 translate-y-0"
-} as const;
 
 export function Reveal({
   as: Tag = "div",
   children,
   className = "",
   delay = 0,
-  direction = "up",
-  duration = 850,
-  once = true,
+  onReveal,
   style,
   ...props
 }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
+  const onRevealRef = useRef(onReveal);
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    onRevealRef.current = onReveal;
+  }, [onReveal]);
 
   useEffect(() => {
     const node = ref.current;
@@ -44,21 +37,21 @@ export function Reveal({
       return;
     }
 
+    const bottomMargin = Tag === "footer" ? "0px" : window.innerWidth >= 1024 ? "-160px" : "-96px";
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
           setVisible(true);
-          if (once) observer.unobserve(node);
-        } else if (!once) {
-          setVisible(false);
+          onRevealRef.current?.();
+          observer.unobserve(node);
         }
       },
-      { rootMargin: "0px 0px -4% 0px", threshold: 0.01 }
+      { rootMargin: `0px 0px ${bottomMargin} 0px`, threshold: 0.01 }
     );
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [once]);
+  }, [Tag]);
 
   return (
     <Tag
@@ -66,13 +59,11 @@ export function Reveal({
       ref={(node) => {
         ref.current = node;
       }}
-      className={`reveal opacity-0 blur-sm ${directionClasses[direction]} transition-[opacity,transform,filter] delay-[var(--reveal-delay)] duration-[var(--reveal-duration)] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[opacity,transform,filter] data-[reveal-visible=true]:translate-x-0 data-[reveal-visible=true]:translate-y-0 data-[reveal-visible=true]:opacity-100 data-[reveal-visible=true]:blur-0 motion-reduce:translate-x-0 motion-reduce:translate-y-0 ${className}`}
-      data-reveal-direction={direction}
+      className={`reveal ${className}`}
       data-reveal-visible={visible ? "true" : "false"}
       style={{
         ...style,
-        "--reveal-delay": `${delay}ms`,
-        "--reveal-duration": `${duration}ms`
+        "--reveal-delay": `${delay}ms`
       } as React.CSSProperties}
     >
       {children}
